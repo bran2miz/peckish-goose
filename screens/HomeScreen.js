@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { Button, View, Text, Image, StyleSheet, ScrollView, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function HomeScreen() {
+    const navigation = useNavigation();
+
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Logo */}
@@ -11,12 +14,11 @@ export default function HomeScreen() {
       <Text style={styles.title}>Welcome to The Peckish Goose!</Text>
 
       {/* Subtitle */}
-      <Text style={styles.subtitle}>Explore delicious cuisines and find the best places to eat!</Text>
+      <Text style={styles.subtitle}>Explore delicious cuisines based on your mood!</Text>
 
       {/* Other content, like buttons or additional images */}
       <View style={styles.contentContainer}>
-        <Text style={styles.content}>Discover our featured dishes and enjoy exclusive offers!</Text>
-        {/* Add more elements as needed */}
+      <Button title="Enter" onPress={() => navigation.navigate('Tabs')} />
       </View>
     </ScrollView>
   );
