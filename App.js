@@ -2,10 +2,13 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {Provider} from 'react-redux';
 import { MoodProvider } from './Context/Settings/MoodContext';
+import menu from './menu/menu';
 import HomeScreen from './screens/HomeScreen';  
 import MainPage from './screens/MainPage';
 import AboutMe from './screens/AboutMe';
+import MyList from './screens/MyList';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Stack = createNativeStackNavigator();
@@ -40,6 +43,16 @@ const HomeTabNavigator = () => {
             ),
           }}
         />
+        <Tab.Screen
+          name="My List"
+          component={MyList}
+          options={{
+            tabBarLabel: 'My List',
+            tabBarIcon: ({ color, size }) => (
+              <MaterialCommunityIcons name="account" color={color} size={size} />
+            ),
+          }}
+        />
       </Tab.Navigator>
     );
   };
@@ -59,10 +72,12 @@ const HomeTabNavigator = () => {
 
 export default function App() {
   return (
+    <Provider menu={menu}>
     <MoodProvider>
     <NavigationContainer>
       <AuthStack />
     </NavigationContainer>
     </MoodProvider>
+    </Provider>
   );
 }
