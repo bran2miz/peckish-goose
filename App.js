@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState, useContext } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -15,6 +16,9 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeTabNavigator = () => {
+
+    const [restaurants, setRestaurants] = useState([]);
+
     return (
       <Tab.Navigator
         initialRouteName="Main Page"
@@ -25,7 +29,7 @@ const HomeTabNavigator = () => {
       >
         <Tab.Screen
           name="Main Page"
-          component={MainPage}
+          component={() => <MainPage restaurants={restaurants} setRestaurants={setRestaurants} />}
           options={{
             tabBarLabel: 'Main Page',
             tabBarIcon: ({ color, size }) => (
@@ -45,7 +49,7 @@ const HomeTabNavigator = () => {
         />
         <Tab.Screen
           name="My List"
-          component={MyList}
+          component={() => <MyList restaurants={restaurants} />}
           options={{
             tabBarLabel: 'My List',
             tabBarIcon: ({ color, size }) => (
@@ -72,7 +76,7 @@ const HomeTabNavigator = () => {
 
 export default function App() {
   return (
-    <Provider menu={menu}>
+    <Provider store={menu}>
     <MoodProvider>
     <NavigationContainer>
       <AuthStack />

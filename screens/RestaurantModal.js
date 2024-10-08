@@ -8,7 +8,14 @@ export default function RestaurantModal({ visible, onClose, restaurant }) {
     const dispatch = useDispatch();
 
     const handleAddItemToList = (menuItem) => {
-        dispatch(addItemToList(menuItem));
+
+        const itemWithRestaurant = {
+            ...menuItem,
+            restaurantName: restaurant.name,
+        }
+
+        dispatch(addItemToList(itemWithRestaurant));
+        onClose();
     }
 
     return (

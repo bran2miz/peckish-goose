@@ -5,8 +5,8 @@ import { MoodContext } from '../Context/Settings/MoodContext';
 import RestaurantForm from './RestaurantForm';
 import RestaurantCard from './RestaurantCard';
 
-export default function MainPage() {
-    const [restaurants, setRestaurants] = useState([]);
+export default function MainPage({ restaurants, setRestaurants }) {
+    
     // const [userInput, setUserInput] = useState('');
     const {mood} = useContext(MoodContext);
     const [error, setError] = useState('');
