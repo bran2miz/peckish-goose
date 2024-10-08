@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+// import { v4 as uuidv4 } from 'uuid';
 
 const menuSlice = createSlice({
     name: 'menu',
@@ -7,7 +8,13 @@ const menuSlice = createSlice({
     },
     reducers: {
         addItemToList: (state, action) => {
-            state.menuItems.push(action.payload)
+
+            const newItem = {
+                ...action.payload,
+                id: Date.now() // this will assign a unique ID based on the current time
+            }
+
+            state.menuItems.push(newItem)
         },
         removeItemFromList: (state, action) => {
             state.menuItems = state.menuItems.filter(item => item.id !== action.payload.id);
