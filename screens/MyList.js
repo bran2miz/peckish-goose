@@ -26,11 +26,15 @@ export default function MyListScreen({ restaurants }) {
 
                     return (
                         <View key={idx} style={styles.card}>
-                            <Text>{item.itemName} from {restaurant ? restaurant.name : "Unknown Restaurant"}</Text>
-                            <Text style={styles.itemDescription}>{item.itemDescription}</Text>
-                            <Button title="Remove" onPress={() => handleRemoveItemFromList(item.id)} />
+                          <Text>
+                            <Text style={styles.restaurantName}>{restaurant ? restaurant.name : "Unknown Restaurant"}</Text>
+                            <Text> - {item.itemName}</Text>
+                          </Text>
+                          <Text style={styles.itemDescription}>{item.itemDescription}</Text>
+                          <Button title="Remove" onPress={() => handleRemoveItemFromList(item.id)} />
                         </View>
-                    );
+                      );
+                      
                 }
 
                 ))
@@ -54,6 +58,10 @@ const styles = StyleSheet.create({
         shadowRadius: 5,
         elevation: 5, // For Android shadow
     },
+    restaurantName: {
+        fontWeight: 'bold',
+        fontSize: 18,
+      },
     itemName: {
         fontSize: 18,
         fontWeight: 'bold',
