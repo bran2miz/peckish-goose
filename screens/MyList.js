@@ -1,15 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { removeItemFromList } from '../menu/menuSlice';
 import { View, Image, Text, Button, StyleSheet, ScrollView } from 'react-native';
+import ReviewModal from './ReviewModal';
 
 export default function MyListScreen({ restaurants }) {
     const menuItems = useSelector(state => state.menu.menuItems);
     const dispatch = useDispatch();
 
+    const [modalVisible, setModalVisible]= useState(false);
+    const [inputValue, setInputValue] = useState('');
+
     const handleRemoveItemFromList = (id) => {
         dispatch(removeItemFromList({ id }));
     };
+
+    const openModal = () => {
+        setModalVisible(true);
+    }
+
+    const closeModal = () => {
+        setModalVisible(false);
+    }
+
     console.log(restaurants);
     return (
         <ScrollView >
@@ -35,6 +48,7 @@ export default function MyListScreen({ restaurants }) {
                           <Text style={styles.itemDescription}>{item.itemDescription}</Text>
                           <Image source={require('../assets/images/FullLogo_Transparent.png')} style={styles.logo} />
                           <Button title="Remove" onPress={() => handleRemoveItemFromList(item.id)} />
+                        <Button title="Add a Review" onPress={openModal} />
                         </View>
                         
                       );
@@ -43,6 +57,7 @@ export default function MyListScreen({ restaurants }) {
 
                 ))
             }
+            <ReviewModal modalVisible={modalVisible} closeModal= {closeModal} setInputValue={setInputValue} inputValue={inputValue} />
         </View>
         </ScrollView>
     );
