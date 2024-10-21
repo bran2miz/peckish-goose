@@ -1,8 +1,16 @@
 import React from 'react';
 import { Modal, View, Image, Text, TextInput, Button, StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { setReviewForItem } from '../menu/menuSlice';
 
+export default function ReviewModal({ modalVisible, closeModal, inputValue, setInputValue, itemId }) {
+    const dispatch = useDispatch();
 
-export default function ReviewModal({ modalVisible, closeModal, inputValue, setInputValue }) {
+    const handleSubmitReview = () => {
+        dispatch(setReviewForItem({id: itemId, review: inputValue,            
+        }));
+        closeModal();
+    };
 
     return (
         <Modal
@@ -19,7 +27,7 @@ export default function ReviewModal({ modalVisible, closeModal, inputValue, setI
                     value={inputValue}
                     onChangeText={setInputValue}
                 />
-                <Button title="Submit" onPress={closeModal} />
+                <Button title="Submit" onPress={handleSubmitReview} />
             </View>
         </View>
     </Modal>
