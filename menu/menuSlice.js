@@ -26,10 +26,17 @@ const menuSlice = createSlice({
             if (index !== -1) {
                 state.items[index] = {...state.items[index], ...action.payload};
             }
+        },
+        setReviewForItem: (state, action) => {
+            const index = state.menuItems.findIndex(item => item.id === action.payload.id);
+
+            if (index != -1) {
+                state.menuItems[index].review = action.payload.review;
+            }
         }
     }
 });
 
-export const {addItemToList, removeItemFromList, updateItemFromList} = menuSlice.actions;
+export const {addItemToList, removeItemFromList, updateItemFromList, setReviewForItem} = menuSlice.actions;
 
 export default menuSlice.reducer;

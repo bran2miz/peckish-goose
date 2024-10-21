@@ -10,12 +10,15 @@ export default function MyListScreen({ restaurants }) {
 
     const [modalVisible, setModalVisible]= useState(false);
     const [inputValue, setInputValue] = useState('');
+    const [currentItemId, setCurrentItemId] = useState(null);
 
     const handleRemoveItemFromList = (id) => {
         dispatch(removeItemFromList({ id }));
     };
 
-    const openModal = () => {
+    const openModal = (id) => {
+        console.log("item id in open modal", id);
+        setCurrentItemId(id);
         setModalVisible(true);
     }
 
@@ -28,7 +31,7 @@ export default function MyListScreen({ restaurants }) {
         <ScrollView >
         <View style={styles.container}>
             {menuItems.length === 0 ? (
-                <Text>Your Cart is Empty</Text>
+                <Text>No Items in your List!</Text>
             ) : (
                 menuItems.map((item, idx) => {
                     const restaurant = restaurants.find(restaurant => 
@@ -46,9 +49,10 @@ export default function MyListScreen({ restaurants }) {
                             <Text> - {item.itemName}</Text>
                           </Text>
                           <Text style={styles.itemDescription}>{item.itemDescription}</Text>
+                          {item.review && <Text style={styles.review}>Review: {item.review}</Text>}
                           <Image source={require('../assets/images/FullLogo_Transparent.png')} style={styles.logo} />
                           <Button title="Remove" onPress={() => handleRemoveItemFromList(item.id)} />
-                        <Button title="Add a Review" onPress={openModal} />
+                        <Button title="Add a Review" onPress={()=> openModal(item.id)} />
                         </View>
                         
                       );
@@ -57,7 +61,7 @@ export default function MyListScreen({ restaurants }) {
 
                 ))
             }
-            <ReviewModal modalVisible={modalVisible} closeModal= {closeModal} setInputValue={setInputValue} inputValue={inputValue} />
+            <ReviewModal modalVisible={modalVisible} closeModal= {closeModal} setInputValue={setInputValue} inputValue={inputValue} itemId={currentItemId}  />
         </View>
         </ScrollView>
     );
