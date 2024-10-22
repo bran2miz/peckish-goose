@@ -49,7 +49,8 @@ export default function MyListScreen({ restaurants }) {
                             <Text> - {item.itemName}</Text>
                           </Text>
                           <Text style={styles.itemDescription}>{item.itemDescription}</Text>
-                          {item.review && <Text style={styles.review}>Review: {item.review}</Text>}
+                          {item.review && <Text style={styles.review}>Your Review: {item.review}</Text>}
+                          {item.rating && <Text style={styles.rating}>Your Rating: {item.rating}</Text>}
                           <Image source={require('../assets/images/FullLogo_Transparent.png')} style={styles.logo} />
                           <Button title="Remove" onPress={() => handleRemoveItemFromList(item.id)} />
                         <Button title="Add a Review" onPress={()=> openModal(item.id)} />

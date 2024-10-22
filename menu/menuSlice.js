@@ -32,6 +32,7 @@ const menuSlice = createSlice({
 
             if (index != -1) {
                 state.menuItems[index].review = action.payload.review;
+                state.menuItems[index].rating = action.payload.rating;
             }
         }
     }
